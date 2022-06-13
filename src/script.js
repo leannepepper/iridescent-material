@@ -3,6 +3,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
 import './style.css'
+import { addBubbles } from './bubbles'
 
 /**
  * Base
@@ -25,7 +26,8 @@ const hdrEquirect = new RGBELoader().load(
   'HDR/studio_garden_4k.hdr',
   function () {
     hdrEquirect.mapping = THREE.EquirectangularReflectionMapping
-    scene.background = hdrEquirect
+    // scene.background = hdrEquirect
+    scene.environment = hdrEquirect
   }
 )
 
@@ -39,6 +41,11 @@ glftLoader.load('./models/Duck.gltf', gltf => {
   duck.position.set(0, -0.5, 0)
   scene.add(duck)
 })
+
+// Bubbles
+
+const bubble = addBubbles(hdrEquirect)
+scene.add(bubble)
 
 // Sizes
 const sizes = {
